@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Getting Started with Chart JS with www.chartjs3.com</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+      .chartMenu {
+        width: 100vw;
+        height: 40px;
+        background: #1A1A1A;
+        color: rgba(54, 162, 235, 1);
+      }
+      .chartMenu p {
+        padding: 10px;
+        font-size: 20px;
+      }
+      .chartCard {
+        width: 100vw;
+        height: calc(100vh - 40px);
+        background: rgba(54, 162, 235, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .chartBox {
+        width: 80%;
+        padding: 20px;
+        border-radius: 20px;
+        border: solid 3px rgba(54, 162, 235, 1);
+        background: white;
+      }
+    </style>
+    <script>
+      function addData(chart, label, newData) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(newData);
+        dataset.data.pop();
+    });
+    chart.update();
+}
+
+function removeData(chart) {
+    chart.data.labels.pop();
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.pop();
+    });
+    chart.update();
+}
+
+function play() {
+            let audio = new Audio(
+'https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3');
+            audio.play();
+        }
+
+async function getData() {
+  const url = 'http://127.0.0.1:5000/data';
+  const response = await fetch(url);
+  const datapoints = await response.json();
+  //console.log(datapoints);
+  return datapoints;
+}
+    </script>
+  </head>
+  <body>
+    <div class="chartMenu">
+      <!--<p>WWW.CHARTJS3.COM (Chart JS <span id="chartVersion"></span>)</p>-->
+    </div>
+    <div class="chartCard">
+      <div class="chartBox">
+        <button onclick="getData()">Fetch Data</button>
+        <canvas id="myChart"></canvas>
+      </div>
+    </div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+    <div class="container">
+      <canvas id="myChart"></canvas>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+      const ctx = document.getElementById('myChart');
+
+/*
+      await fetch('http://127.0.0.1:5000/data')
+        .then(response => response.json())
+        .then(data => { 
+          datos = data;
+          console.log(datos);
+        });
+*/
+
+const data = {
+  labels: "0123456789",
+  datasets: [{
+        label: 'Peso Fardos (KGMS)',
+        data: [0,0,0,0,0,0,0,0,0,0],
+        borderWidth: 1,
+      },
+      {
+        label: 'Limite Inferior',
+        data: [20.00, 20.00, 20.00, 20.00, 20.00, 20.00, 20.00, 20.00, 20.00, 20.00],
+        borderWidth: 1,
+        pointStyle: false
+      },
+      {
+        label: 'Limite Superior',
+        data: [21.00, 21.00, 21.00, 21.00, 21.00, 21.00, 21.00, 21.00, 21.00, 21.00, ],
+        borderWidth: 1,
+        pointStyle: false
+      }
+
+    ]
+    }
+
+const config = {
+  type: 'line',
+  data,
+  options: {
+    animation: false,
+    scales: {
+      y: {
+        beginAtZero: false,
+        min: 19.00,
+        max: 21.50
+      }
+    }
+  }
+};
+
+const myChart = new Chart(
+  document.getElementById('myChart'),
+  config
+);
+
+function actualizar() {
+  getData().then(datapoints => {
+    if(JSON.stringify(config.data.datasets[0].data) == JSON.stringify(datapoints)) {
+      return 0;
+    }
+    else {
+      config.data.datasets[0].data = datapoints;
+      myChart.update();
+      
+      if(datapoints[9] > 21.00 || datapoints[9] < 20.00) {
+        play();
+      }
+    }
+  
+})
+};
+
+setInterval(actualizar, 2000);
+
+</script>
+
+  </body>
+</html>
