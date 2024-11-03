@@ -17,11 +17,11 @@ def datos(id):
     
     pesos.pop(0)
     pesos.append(round(id, 2))
-    print(pesos)
+    #print(pesos)
     return ' '
 
 @app.route("/data")
 def data():
-    print(pesos)
+   # print(pesos)
     return json.dumps(pesos)
 
