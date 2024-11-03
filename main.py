@@ -1,5 +1,4 @@
 import os
-from cs50 import SQL
 from flask import Flask, redirect, render_template, request, send_from_directory
 import sys
 from datetime import date
