@@ -61,7 +61,7 @@ function play() {
         }
 
 async function getData() {
-  const url = 'http://127.0.0.1:5000/data';
+  const url = 'https://pesos-production.up.railway.app/data';
   const response = await fetch(url);
   const datapoints = await response.json();
   //console.log(datapoints);
