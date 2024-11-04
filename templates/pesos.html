@@ -107,13 +107,13 @@ const data = {
       },
       {
         label: 'Limite Inferior',
-        data: [20.00, 20.00, 20.00, 20.00, 20.00, 20.00, 20.00, 20.00, 20.00, 20.00],
+        data: [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00],
         borderWidth: 1,
         pointStyle: false
       },
       {
         label: 'Limite Superior',
-        data: [21.00, 21.00, 21.00, 21.00, 21.00, 21.00, 21.00, 21.00, 21.00, 21.00, ],
+        data: [1.10, 1.10, 1.10, 1.10, 1.10, 1.10, 1.10, 1.10, 1.10, 1.10],
         borderWidth: 1,
         pointStyle: false
       }
@@ -129,8 +129,8 @@ const config = {
     scales: {
       y: {
         beginAtZero: false,
-        min: 19.00,
-        max: 21.50
+        min: 9.50,
+        max: 1.50
       }
     }
   }
@@ -150,7 +150,7 @@ function actualizar() {
       config.data.datasets[0].data = datapoints;
       myChart.update();
       
-      if(datapoints[9] > 21.00 || datapoints[9] < 20.00) {
+      if(datapoints[9] > 1.10 || datapoints[9] < 1.00) {
         play();
       }
     }
