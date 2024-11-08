@@ -113,7 +113,7 @@ const data = {
       },
       {
         label: 'Limite Superior',
-        data: [1.10, 1.10, 1.10, 1.10, 1.10, 1.10, 1.10, 1.10, 1.10, 1.10],
+        data: [1.02, 1.02, 1.02, 1.02, 1.02, 1.02, 1.02, 1.02, 1.02, 1.02],
         borderWidth: 1,
         pointStyle: false
       }
@@ -130,7 +130,7 @@ const config = {
       y: {
         beginAtZero: false,
         min: 0.90,
-        max: 1.20
+        max: 1.10
       }
     }
   }
@@ -150,7 +150,7 @@ function actualizar() {
       config.data.datasets[0].data = datapoints;
       myChart.update();
       
-      if(datapoints[9] > 1.10 || datapoints[9] < 1.00) {
+      if(datapoints[9] > 1.02 || datapoints[9] < 1.00) {
         play();
       }
     }
