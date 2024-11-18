@@ -129,8 +129,8 @@ const config = {
     scales: {
       y: {
         beginAtZero: false,
-        min: 0.90,
-        max: 1.10
+        min: 0.60,
+        max: 0.15
       }
     }
   }
@@ -150,7 +150,7 @@ function actualizar() {
       config.data.datasets[0].data = datapoints;
       myChart.update();
       
-      if(datapoints[9] > 1.02 || datapoints[9] < 1.00) {
+      if(datapoints[9] > 0.12 || datapoints[9] < 0.80) {
         play();
       }
     }
